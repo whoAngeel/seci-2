@@ -10,7 +10,7 @@
 
 
       <!-- <div  class=""> -->
-        <card-career v-for="(career, index ) in carreras" :key="index" :career="career" />
+        <card-career v-for="(career, index ) in carreras" :key="index" :career="career" @count-updated="handleCountUpdated" />
 
       <!-- </div> -->
       <!-- {{ data?.record.carreras }} -->
@@ -31,6 +31,7 @@ if (data) carreras.value = data.value?.record?.carreras
 else console.log(data.value.record);
 // console.log(carreras.value);
 // console.log(data.value?.record);
+
 
 </script>
 

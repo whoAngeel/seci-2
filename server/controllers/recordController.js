@@ -43,7 +43,7 @@ export const getOrCreateTodayRecord = async () => {
 			});
 			await todayRecord.save();
 		}
-        return todayRecord;
+		return todayRecord;
 	} catch (error) {
 		return {
 			error: "obteniendo el registro de hoy",
@@ -67,24 +67,38 @@ export const createOrUpdateRecord = async (date, careers) => {
 };
 
 export const adjustCareerCount = async (date, careerName, gender, increment) => {
-	const record = await Record.findOne({ date });
-	if (!record) {
+	try {
+		const record = await Record.findOne({ date });
+		if (!record) {
+			return {
+				error: "Record not found",
+			};
+		}
+
+		if (!record.carreras || !Array.isArray(record.carreras)) {
+			return {
+				error: "No careers found in record",
+			};
+		}
+
+		const career = record.carreras.find((career) => career.name === careerName);
+		if (!career) return { error: "Career not found" };
+		if (gender == "male") {
+			career.hombres += increment ? 1 : -1;
+		} else if (gender == "female") {
+			career.mujeres += increment ? 1 : -1;
+		}
+
+		career.total = career.hombres + career.mujeres;
+		await record.save();
+        console.log('actualizando');
 		return {
-			error: "Record not found",
+			success: true,
+			record,
+		};
+	} catch (error) {
+		return {
+			error: "Error updating career count",
 		};
 	}
-	const career = record.careers.find((career) => career.name === careerName);
-	if (!career) return { error: "Career not found" };
-	if (gender == "male") {
-		career.hombres += increment ? 1 : -1;
-	} else if (gender == "female") {
-		career.mujeres += increment ? 1 : -1;
-	}
-
-	career.total = career.hombres = career.mujeres;
-	await record.save();
-	return {
-		sucess: true,
-		record,
-	};
 };
