@@ -1,12 +1,9 @@
 <template>
-  <div class="h-full">
-    <h5 class="text-3xl">
-      Index {{ typeof (now) }}, {{ now }}
-    </h5>
-    <div>
-      <h2 class="text-3xl">Registros de hoy</h2>
-      <RecordToday class="h-full" />
-    </div>
+  <div class="h-full container">
+    
+      <RecordToday class="h-full counters pr-4 flex " />
+      <div class="stats bg-slate-600">stats</div>
+      <div class="calendar">calendar</div>
     <!-- <span class="badge badge-xs">{{ todso }}</span> -->
 
 
@@ -34,4 +31,24 @@ let now = dayjs().format('DD/MM/YYYY')
 // })
 </script>
 
-<style></style>
+<style scoped>
+.container {  display: grid;
+  grid-template-columns: 3fr 1.8fr 0.8fr 2fr;
+  grid-template-rows: 1.3fr 1fr 0.9fr 1fr;
+  gap: 0px 0px;
+  /* width: 100%; */
+  grid-auto-flow: row;
+  grid-template-areas:
+    "counters counters counters stats"
+    "counters counters counters stats"
+    "counters counters counters calendar"
+    "counters counters counters calendar";
+}
+
+.counters { grid-area: counters; }
+
+.stats { grid-area: stats; }
+
+.calendar { grid-area: calendar; }
+
+</style>
