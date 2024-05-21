@@ -1,3 +1,5 @@
 export default defineEventHandler(async (event) => {
-  return 'Hello Nitro'
+  return {
+    datos: [1,2,3,4,5]
+  }
 })

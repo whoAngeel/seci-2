@@ -9,12 +9,29 @@ export default defineNuxtConfig({
 		"@kevinmarrec/nuxt-pwa",
 		"nuxt-icon",
 		"@nuxt/fonts",
+		"@nuxtjs/color-mode",
 		"nuxt-quasar-ui",
+		"dayjs-nuxt",
 	],
+
 	appConfig: {
 		buildDate: new Date().toISOString(),
 	},
-	// css: ["~/assets/css/main.css"],
+	runtimeConfig:{
+		dburl: process.env.MONGOURL,
+	},
+	css: ["~/assets/css/main.css"],
+	colorMode: {
+		preference: "sunset", // default theme
+		dataValue: "theme", // activate data-theme in <html> tag
+		classSuffix: "",
+	},
+	postcss: {
+		plugins: {
+			tailwindcss: {},
+			autoprefixer: {},
+		},
+	},
 	fonts: {
 		families: [
 			{
@@ -56,16 +73,16 @@ export default defineNuxtConfig({
 			],
 		},
 	},
-	nitro: {
-		esbuild: {
-			options: {
-				target: "esnext",
-			},
-		},
-		prerender: {
-			routes: ["/", "/about"],
-		},
-	},
+	// nitro: {
+	// 	esbuild: {
+	// 		options: {
+	// 			target: "esnext",
+	// 		},
+	// 	},
+	// 	prerender: {
+	// 		routes: ["/", "/about"],
+	// 	},
+	// },
 	app: {
 		head: {
 			htmlAttrs: {
@@ -74,5 +91,15 @@ export default defineNuxtConfig({
 			title: "SECI",
 			charset: "utf-8",
 		},
+	},
+	// mongoose:{
+	// 	uri:`${process.env.MONGOURL}/entradasdb`,
+	// 	devtools: true
+	// },
+	
+	dayjs: {
+		defaultLocale: "es",
+		plugins: ["relativeTime", "utc", "timezone"],
+		defaultTimezone: "America/Mexico_City",
 	},
 });
