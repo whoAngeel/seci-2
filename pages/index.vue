@@ -2,7 +2,9 @@
   <div class="h-full container">
     
       <RecordToday class="h-full counters pr-4 flex " />
-      <div class="stats bg-slate-600">stats</div>
+      <div class="stats bg-slate-600 flex justify-center items-center">
+        <stats-today/>
+      </div>
       <div class="calendar">calendar</div>
     <!-- <span class="badge badge-xs">{{ todso }}</span> -->
 

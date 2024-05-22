@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div id="loader" v-if="pending"
-      class="mx-auto w-full flex justify-center h-96 items-center -ml-10  ">
+    <div id="loader" v-if="pending" class="mx-auto w-full flex justify-center h-96 items-center -ml-10  ">
       <loader />
     </div>
     <div v-else-if="error" class="text-error text-center h-96 flex justify-center items-center">
@@ -11,7 +10,7 @@
 
 
       <!-- <div  class=""> -->
-        <card-career v-for="(career, index ) in carreras" :key="index" :career="career" @count-updated="handleCountUpdated" />
+      <card-career v-for="(career, index ) in carreras" :key="index" :career="career" />
 
       <!-- </div> -->
       <!-- {{ data?.record.carreras }} -->
@@ -22,14 +21,17 @@
 
 <script setup>
 import loader from './ui/loader.vue';
-const carreras = ref()
-const { data, error, pending, refresh } = await useAsyncData('record', () => $fetch('/api/records/today')) 
-// if (data) carreras.value = data.value?.record?.carreras
-// carreras.value = data.value?.record?.carreras
-if(data){
+const carreras = ref([])
+const emits = defineEmits(['total'])
+const store = useMyRecordStore()
+const { data, error, pending, refresh } = await useAsyncData('record', () => $fetch('/api/records/today'))
+if (data) {
   carreras.value = data.value.carreras
-  // console.log('Carreras ',data.value.carreras);
+  console.log(data.value.carreras.length);
+  store.totalDia = data.value.totalDia
+  console.log('total = ', data.value.totalDia)
 }
+
 
 </script>
 
