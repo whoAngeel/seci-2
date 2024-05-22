@@ -45,6 +45,7 @@
 const dayjs = useDayjs()
 const router = useRouter()
 const props = defineProps(['career'])
+const emits = defineEmits(['count-updated'])
 
 let now = dayjs().format('DD/MM/YYYY')
 
@@ -73,7 +74,8 @@ const updateCount = async (gender, increment) => {
     if (!status.ok) {
       throw new Error("Error al actualizar el contador")
     }
-    router.push('/')
+    emits('count-updated')
+    // router.push('/')
   } catch (error) {
     console.error(error)
 

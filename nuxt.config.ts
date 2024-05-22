@@ -12,6 +12,7 @@ export default defineNuxtConfig({
 		"@nuxtjs/color-mode",
 		"nuxt-quasar-ui",
 		"dayjs-nuxt",
+		'@pinia/nuxt',
 	],
 
 	appConfig: {
