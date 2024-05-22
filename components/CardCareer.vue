@@ -42,44 +42,24 @@
 </template>
 
 <script setup>
-const dayjs = useDayjs()
 const router = useRouter()
 const props = defineProps(['career'])
 const emits = defineEmits(['count-updated'])
+const store = useMyRecordStore()
 
-let now = dayjs().format('DD/MM/YYYY')
+// await useAsyncData('recordToday', ()=> store.fetchTodayRecord())
+
 
 const incrementCount = async (gender) => {
-  await updateCount(gender, true)
+  // await updateCount(gender, true) 
+  console.log('inc');
 }
 
 const decrementCount = async (gender) => {
-  await updateCount(gender, false)
+  // await updateCount(gender, false)
+  console.log('dec');
 }
 
-const updateCount = async (gender, increment) => {
-  try {
-    const { status, data, pending, error } = await useFetch('/api/records/update', {
-      method: "PUT",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        date: now,
-        careerName: props.career.name,
-        gender,
-        increment,
-      }),
-    })
-    if (!status.ok) {
-      throw new Error("Error al actualizar el contador")
-    }
-    emits('count-updated')
-    // router.push('/')
-  } catch (error) {
-    console.error(error)
 
-  }
-}
 
 </script>

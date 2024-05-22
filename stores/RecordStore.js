@@ -10,15 +10,18 @@ export const useMyRecordStore = defineStore("record", () => {
 	const fetchTodayRecord = async () => {
 		isLoading.value = true;
 		try {
-			const { data, error: fetchError } = await useFetch(
-				"/api/records/today"
-			).json();
-			if (fetchError.value)
+			const { data, error: fetchError } = await useFetch("/api/records/today");
+			if (fetchError.value) {
+				console.log("fetch error");
 				error.value = fetchError.value.message || "Error fetching record";
-			else {
-				console.log(data.value?.record);
+			} else {
+				console.log("Registro", toRaw(data.value));
+				// recordToday.value = data.value
+				// recordToday.value = data.value?.record;
+				// recordToday.value = data.value;
 			}
 		} catch (err) {
+			console.log("err");
 			error.value = err.message;
 		} finally {
 			isLoading.value = false;
@@ -32,7 +35,7 @@ export const useMyRecordStore = defineStore("record", () => {
 				data,
 				pending,
 				error: fetchError,
-			} = await useFetch("/api/records/update", {
+			} = await $fetch("/api/records/update", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -44,7 +47,7 @@ export const useMyRecordStore = defineStore("record", () => {
 					increment,
 				}),
 			});
-			if (!status.ok) {
+			if (fetchError) {
 				error.value = "Error updating counter";
 			} else {
 				const updatedCareer = recordToday.value?.carreras.find(

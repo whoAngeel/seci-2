@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div id="loader" v-if="pending" class="mx-auto w-full flex justify-center h-96 items-center -ml-10  ">
+    <div id="loader" v-if="pending"
+      class="mx-auto w-full flex justify-center h-96 items-center -ml-10  ">
       <loader />
     </div>
     <div v-else-if="error" class="text-error text-center h-96 flex justify-center items-center">
@@ -21,19 +22,26 @@
 
 <script setup>
 import loader from './ui/loader.vue';
-import { useFetch } from '@vueuse/core'
-
 const carreras = ref()
-// const { pending, error, data } = await useAsyncData().
-const { data, error, pending, refresh } = await useAsyncData('record', () => $fetch('/api/records/today'))
-
-if (data) carreras.value = data.value?.record?.carreras
-else console.log(data.value.record);
-// console.log(carreras.value);
-// console.log(data.value?.record);
-
+const { data, error, pending, refresh } = await useAsyncData('record', () => $fetch('/api/records/today')) 
+// if (data) carreras.value = data.value?.record?.carreras
+// carreras.value = data.value?.record?.carreras
+if(data){
+  carreras.value = data.value.carreras
+  // console.log('Carreras ',data.value.carreras);
+}
 
 </script>
+
+
+<!-- //  -->
+<!-- // // const { pending, error, data } = await useAsyncData(). -->
+<!-- // 
+
+<!-- //  -->
+
+
+
 
 <style scoped>
 /* #loader{ */
