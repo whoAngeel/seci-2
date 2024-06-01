@@ -12,13 +12,13 @@ export default defineNuxtConfig({
 		"@nuxtjs/color-mode",
 		"nuxt-quasar-ui",
 		"dayjs-nuxt",
-		'@pinia/nuxt',
+		"@pinia/nuxt",
 	],
 
 	appConfig: {
 		buildDate: new Date().toISOString(),
 	},
-	runtimeConfig:{
+	runtimeConfig: {
 		dburl: process.env.MONGOURL,
 	},
 	css: ["~/assets/css/main.css"],
@@ -97,10 +97,17 @@ export default defineNuxtConfig({
 	// 	uri:`${process.env.MONGOURL}/entradasdb`,
 	// 	devtools: true
 	// },
-	
+
 	dayjs: {
 		defaultLocale: "es",
 		plugins: ["relativeTime", "utc", "timezone"],
 		defaultTimezone: "America/Mexico_City",
 	},
+	ui: {
+		notifications: {
+			// Show toasts at the top right of the screen
+			position: "top-0 bottom-auto",
+		},
+	},
+	ssr:false
 });

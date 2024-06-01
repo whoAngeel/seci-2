@@ -1,40 +1,27 @@
 <template>
   <div class="h-full container">
-    
-      <RecordToday class="h-full counters pr-4 flex " />
-      <div class="stats bg-slate-600 flex justify-center items-center">
-        <stats-today/>
-      </div>
-      <div class="calendar">calendar</div>
-    <!-- <span class="badge badge-xs">{{ todso }}</span> -->
 
+    <RecordToday class="h-full counters pr-4 flex " :isLoading="isLoading" :error="error"/>
+    <div class="stats bg-slate-600 flex justify-center items-center">
+      <stats-today />
+    </div>
+    <div class="calendar">calendar</div>
 
-    <!-- <div>{{ today }}</div> -->
   </div>
 </template>
 
 
-<script lang="ts" setup>
-
+<script setup>
 const dayjs = useDayjs()
 
-let now = dayjs().format('DD/MM/YYYY')
-// console.log(now);
-// // const today = moment().format('DD/MM/YYYY')
+const recordStore = useMyRecordStore()
+const { isLoading, error } = recordStore
 
-// const { data: todso } = useFetch('/api/records', { method: "GET" })
-// const todayRecord = ref(null)
-// onBeforeMount(async() => {
-//   const { data: hoy, error } = await useFetch('/api/records', { method: "POST" })
-//   if(error){
-//     console.log("Error", error);
-//   }
-//   todayRecord.value = hoy.value
-// })
 </script>
 
 <style scoped>
-.container {  display: grid;
+.container {
+  display: grid;
   grid-template-columns: 3fr 1.8fr 0.8fr 2fr;
   grid-template-rows: 1.3fr 1fr 0.9fr 1fr;
   gap: 0px 0px;
@@ -47,10 +34,15 @@ let now = dayjs().format('DD/MM/YYYY')
     "counters counters counters calendar";
 }
 
-.counters { grid-area: counters; }
+.counters {
+  grid-area: counters;
+}
 
-.stats { grid-area: stats; }
+.stats {
+  grid-area: stats;
+}
 
-.calendar { grid-area: calendar; }
-
+.calendar {
+  grid-area: calendar;
+}
 </style>
