@@ -12,6 +12,17 @@ export const getRecords = async () => {
 	}
 };
 
+export const updateRecord = async	(recordId, data)=>{
+	try {
+		const record = await Record.findByIdAndUpdate(recordId, data)
+		return record
+	} catch (error) {
+		return {
+			error: "Error al actualizar los registros"
+		}
+	}
+}
+
 export const getOrCreateTodayRecord = async () => {
 	const todayDate = dayjs().format("DD/MM/YYYY");
 	// console.log(todayDate, typeof todayDate);

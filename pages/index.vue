@@ -1,11 +1,13 @@
 <template>
   <div class="h-full container">
 
-    <RecordToday class="h-full counters pr-4 flex " :isLoading="isLoading" :error="error"/>
-    <div class="stats bg-slate-600 flex justify-center items-center">
+    <RecordToday class="h-full counters  " :isLoading="isLoading" :error="error"/>
+    <div class="stats bg-base-200 flex flex-col justify-center items-center">
       <stats-today />
     </div>
-    <div class="calendar">calendar</div>
+    <div class="calendar">
+      <today-date/>
+    </div>
 
   </div>
 </template>

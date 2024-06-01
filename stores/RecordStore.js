@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import dayjs from "dayjs";
-import axios from 'axios'
+import axios from "axios";
 
 export const useMyRecordStore = defineStore("record", () => {
 	const recordToday = ref(null);
@@ -29,20 +29,36 @@ export const useMyRecordStore = defineStore("record", () => {
 	};
 	function updateCareer(name, gender, inc) {
 		const career = carreras.value.find((counter) => counter.name === name);
-		console.log(career.name);
+		// console.log(career.name);
 		if (career) {
 			if (inc) {
 				career[gender] += 1;
-				career.total += 1
-				totalDia.value +=1
+				career.total += 1;
+				totalDia.value += 1;
 			} else {
 				career[gender] -= 1;
-				career.total -= 1
-				totalDia.value -=1
+				career.total -= 1;
+				totalDia.value -= 1;
 			}
 		}
 	}
+
+	function saveRecordToday() {
+		axios({
+			method: "PATCH",
+			url: `/api/records/today/${recordToday.value?.id}`,
+			data:{
+				carreras: carreras.value,
+				totalDia: totalDia.value
+			}
+		}).then(res=>{
+			console.log(res.data);
+		}).catch(err=>{
+			console.log(err.message);
+		})
+	}
 	return {
+		saveRecordToday,
 		recordToday,
 		fetchRecordToday,
 		isLoading,
@@ -51,5 +67,6 @@ export const useMyRecordStore = defineStore("record", () => {
 		carreras,
 		setRecord,
 		totalDia,
+		now
 	};
 });
