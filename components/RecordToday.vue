@@ -27,7 +27,7 @@ const store = useMyRecordStore()
 const { data, error, pending, refresh } = await useAsyncData('record', () => $fetch('/api/records/today'))
 if (data) {
   carreras.value = data.value.carreras
-  console.log(data.value.carreras.length);
+  console.log(data.value?.carreras.length);
   store.totalDia = data.value.totalDia
   console.log('total = ', data.value.totalDia)
 }

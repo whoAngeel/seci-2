@@ -101,9 +101,10 @@ const updateCount = async (gender, increment) => {
     }),
   })
     .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error al actualizar el contador")
-      }
+      console.log(JSON.parse(response.body));
+      // if (!response.ok) {
+      //   throw new Error("Error al actualizar el contador")
+      // }
       router.push('/')
     })
     .catch((error) => {
