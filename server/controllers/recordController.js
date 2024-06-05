@@ -12,6 +12,16 @@ export const getRecords = async () => {
 	}
 };
 
+export const getTotalRecords = async()=>{
+	try {
+		return await Record.estimatedDocumentCount();
+	} catch (error) {
+		return {
+			error: "Error en la peticion"
+		}
+	}
+}
+
 export const updateRecord = async	(recordId, data)=>{
 	try {
 		const record = await Record.findByIdAndUpdate(recordId, data)
