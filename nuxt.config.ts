@@ -13,6 +13,7 @@ export default defineNuxtConfig({
 		"nuxt-quasar-ui",
 		"dayjs-nuxt",
 		"@pinia/nuxt",
+		'nuxt-time'
 	],
 
 	appConfig: {

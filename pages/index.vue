@@ -2,10 +2,10 @@
   <div class="h-full container">
 
     <RecordToday class="h-full counters  " :isLoading="isLoading" :error="error"/>
-    <div class="stats bg-base-200 flex flex-col justify-center items-center">
+    <div class="stats stats-vertical shadow mx-6 my-2 flex flex-col justify-center items-center">
       <stats-today />
     </div>
-    <div class="calendar">
+    <div class="calendar stats stats-vertical shadow mx-6 my-2">
       <today-date/>
     </div>
 
