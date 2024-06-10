@@ -2,6 +2,13 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Contadores
+![Descripción de la imagen](assets/img/index.png)
+
+## Table del registro de hoy
+![Descripción de la imagen](assets/img/today.png)
+
+
 ## Setup
 
 Make sure to install the dependencies:
