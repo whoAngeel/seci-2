@@ -1,8 +1,6 @@
 <template>
   <div class="w-full  h-full flex flex-col items-stretch">
     <ChartGenderDistribution />
-    <ChartGenderDistribution />
-    <ChartGenderDistribution />
 
   </div>
 </template>

@@ -57,43 +57,6 @@ const increment=(gender)=>{
 const decrement=(gender)=>{
   updateCareer(props.career.name, gender, false)
 }
-// await useAsyncData('recordToday', ()=> store.fetchTodayRecord())
-
-
-// const incrementCount = async (gender) => {
-//   // await updateCount(gender, true) 
-//   console.log('inc', props.career.name);
-//   try {
-//     await updateCount(gender, true)
-//     if (gender === 'female') {
-//       props.career.mujeres++
-//     } else if (gender === 'male') {
-//       props.career.hombres++
-//     }
-//     props.career.total = props.career.mujeres + props.career.hombres
-
-//   } catch (error) {
-//     console.log(error);
-//   }
-
-// }
-
-// const decrementCount = async (gender) => {
-//   // await updateCount(gender, false)
-//   console.log('dec');
-//   try {
-//     await updateCount(gender, false)
-//     // Decrementar los contadores localmente después de que la API haya sido actualizada
-//     if (gender === 'female' && props.career.mujeres > 0) {
-//       props.career.mujeres--
-//     } else if (gender === 'male' && props.career.hombres > 0) {
-//       props.career.hombres--
-//     }
-//     props.career.total = props.career.mujeres + props.career.hombres
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
 
 
 </script>
