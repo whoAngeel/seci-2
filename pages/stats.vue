@@ -1,13 +1,23 @@
 <template>
-  <div class="w-full bg-slate-700 h-full">
-   
+  <div class="w-full  h-full flex flex-col items-stretch">
+    <ChartGenderDistribution />
+    <ChartGenderDistribution />
+    <ChartGenderDistribution />
+
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
+import ChartGenderDistribution from '../components/dash/ChartGenderDistribution.vue';
+
+const store = useDashboardStore()
+
+onBeforeMount(()=>{
+  store.fetchData()
+})
+
+onBeforeUnmount(()=>{
+  store.fetchData()
+})
 
 </script>
-
-<style>
-
-</style>

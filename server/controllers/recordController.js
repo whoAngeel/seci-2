@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 export const getRecords = async () => {
 	try {
-		return await Record.find();
+		return await Record.find()
 	} catch (error) {
 		console.log(error);
 		return {
@@ -12,26 +12,26 @@ export const getRecords = async () => {
 	}
 };
 
-export const getTotalRecords = async()=>{
+export const getTotalRecords = async () => {
 	try {
 		return await Record.estimatedDocumentCount();
 	} catch (error) {
 		return {
-			error: "Error en la peticion"
-		}
+			error: "Error en la peticion",
+		};
 	}
-}
+};
 
-export const updateRecord = async	(recordId, data)=>{
+export const updateRecord = async (recordId, data) => {
 	try {
-		const record = await Record.findByIdAndUpdate(recordId, data)
-		return record
+		const record = await Record.findByIdAndUpdate(recordId, data);
+		return record;
 	} catch (error) {
 		return {
-			error: "Error al actualizar los registros"
-		}
+			error: "Error al actualizar los registros",
+		};
 	}
-}
+};
 
 export const getOrCreateTodayRecord = async () => {
 	const todayDate = dayjs().format("DD/MM/YYYY");
@@ -112,7 +112,7 @@ export const adjustCareerCount = async (date, careerName, gender, increment) => 
 
 		career.total = career.hombres + career.mujeres;
 		await record.save();
-        console.log('actualizando');
+		console.log("actualizando");
 		return {
 			success: true,
 			record,

@@ -1,8 +1,9 @@
 import { CareerModel as Career, RecordModel as Record } from "../models/models";
 import dayjs from "dayjs";
-const todayDate = dayjs().format("DD/MM/YYYY");
+import { getRecords } from "./recordController";
 
 export const genderDistribution = async () => {
+	const todayDate = dayjs().format("DD/MM/YYYY");
 	try {
 		const record = await Record.findOne({ date: todayDate });
 		if (!record) {
@@ -70,7 +71,7 @@ export const top3CarrerasHoy = async () => {
 
 export const top3CarrerasTodo = async () => {
 	try {
-		const records =  await Record.find();
+		const records = await getRecords()
 		if (!records || records.length === 0)
 			throw Error("Sin registros encontrados");
 		const careerTotals = {};
