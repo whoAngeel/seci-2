@@ -6,7 +6,7 @@ import {
 } from "~/server/controllers/statsController";
 
 export default defineEventHandler(async (event) => {
-	const genderDist = await genderDistribution();
+	const genderDist:any = await genderDistribution();
 	const recordTrends:any = await trends();
 	const top3careers = await top3CarrerasHoy();
 	const top3careersAll= await top3CarrerasTodo()

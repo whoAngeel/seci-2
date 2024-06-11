@@ -34,11 +34,18 @@ export const genderDistribution = async () => {
 
 export const trends = async () => {
 	try {
-		const trends = await Record.find()
-			.sort({ date: -1 })
-			.limit(30);
+		const trends = await Record.find().limit(30);
+		const ordered = trends.sort((a, b) => {
+			const [dayA, monthA, yearA] = a.date.split("/").map(Number);
+			const [dayB, monthB, yearB] = b.date.split("/").map(Number);
 
-		const formattedTrends = trends.map((record) => ({
+			const dateA = new Date(yearA, monthA - 1, dayA);
+			const dateB = new Date(yearB, monthB - 1, dayB);
+
+			return dateA - dateB; // Invertir el orden
+		});
+
+		const formattedTrends = ordered.map((record) => ({
 			date: record.date,
 			totalDia: record.totalDia,
 		}));
@@ -71,7 +78,7 @@ export const top3CarrerasHoy = async () => {
 
 export const top3CarrerasTodo = async () => {
 	try {
-		const records = await getRecords()
+		const records = await getRecords();
 		if (!records || records.length === 0)
 			throw Error("Sin registros encontrados");
 		const careerTotals = {};
@@ -84,8 +91,7 @@ export const top3CarrerasTodo = async () => {
 			});
 		});
 
-		const top3 = Object
-			.keys(careerTotals)
+		const top3 = Object.keys(careerTotals)
 			.map((nombre) => ({ nombre, total: careerTotals[nombre] }))
 			.sort((a, b) => b.total - a.total)
 			.slice(0, 3);

@@ -1,7 +1,8 @@
 <template>
-  <div class="container  w-44  h-48  bg-slate-200  rounded-lg p-3 ">
-    <h3 class="text-xs text-slate-900 text-center" >Distribucion De Genero</h3>
-    <Pie :data="dataC" :options="chartOptions" class="opacity-100" />
+  <div
+    class="container  w-full  h-48  bg-slate-200  rounded-lg p-5 flex flex-row items-center content-between justify-center">
+    <h3 class="text-xs text-slate-950 font-bold  ">Distribución De Género</h3>
+    <Pie :data="dataC" :options="chartOptions" class=" " />
 
   </div>
 </template>
@@ -26,29 +27,45 @@ const dataC = {
 
 const chartOptions = reactive({
   responsive: true,
-  maintainAspectRatio: true,
+  maintainAspectRatio: false,
   options: {
     interaction: {
       intersect: false,
       mode: 'index'
-    }
+    },
+
+
   },
   plugins: {
-      title: {
-        display: true,
-        text: 'Chart Title',
+    
+    legend: { position: 'right' },
+    tooltip: {
+      callbacks: {
+        footer: () => { return `Total: ${genderDistribution.total}` }
+      }
+    },
+    title: {
+      display: true,
+      text: 'Chart Title',
+    },
+    subtitle: {
+      display: true,
+      text: 'Chart Subtitle',
+      color: 'blue',
+      font: {
+        size: 12,
+        family: 'tahoma',
+        weight: 'normal',
+        style: 'italic'
       },
-      tooltip:{
-        callbacks:{
-          footer: ()=>{return `Total: ${genderDistribution.total}`}
-        }
+      padding: {
+        bottom: 10
       }
     }
+  }
 })
 
-const plugins = [
-  { title: { display: true, text: "Text" } }
-]
+
 
 
 
