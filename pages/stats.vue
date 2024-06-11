@@ -9,7 +9,7 @@
       <bars-records />
     </div>
     <div class="div4 m-1 p-2 bg-slate-500 border-[1px] rounded-lg">
-
+      <bars-careers-today/>
     </div>
 
   </div>
@@ -18,6 +18,7 @@
 <script setup>
 import ChartGenderDistribution from '../components/dash/ChartGenderDistribution.vue';
 import BarsRecords from '~/components/dash/BarsRecords.vue';
+import BarsCareersToday from '~/components/dash/BarsCareersToday.vue';
 const store = useDashboardStore()
 
 onBeforeMount(() => {

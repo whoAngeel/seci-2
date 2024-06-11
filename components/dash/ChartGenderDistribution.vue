@@ -12,13 +12,13 @@ import { Pie } from 'vue-chartjs'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const { genderDistribution, isLoading } = useDashboardStore()
+const { genderDistribution, fetchData } = useDashboardStore()
 // console.log(props.datachart);
 const dataC = {
   labels: ['Hombres', 'Mujeres'],
   datasets: [
     {
-      backgroundColor: ['#82d1f1', '#e08fb6'],
+      backgroundColor: ['#82cdff', '#ffa0b4'],
       data: [genderDistribution.totalHombres, genderDistribution.totalMujeres]
     }
   ],
@@ -37,7 +37,7 @@ const chartOptions = reactive({
 
   },
   plugins: {
-    
+
     legend: { position: 'right' },
     tooltip: {
       callbacks: {
@@ -65,7 +65,9 @@ const chartOptions = reactive({
   }
 })
 
-
+onBeforeMount(() => {
+  fetchData()
+})
 
 
 

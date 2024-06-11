@@ -1,12 +1,12 @@
 <template>
   <div class="h-full container">
 
-    <RecordToday class="h-full counters  " :isLoading="isLoading" :error="error"/>
+    <RecordToday class="h-full counters  " :isLoading="isLoading" :error="error" />
     <div class="stats stats-vertical shadow mx-6 my-2 flex flex-col justify-center items-center">
       <stats-today />
     </div>
     <div class="calendar stats stats-vertical shadow mx-6 my-2">
-      <today-date/>
+      <today-date />
     </div>
 
   </div>
@@ -18,7 +18,10 @@ const dayjs = useDayjs()
 
 const recordStore = useMyRecordStore()
 const { isLoading, error } = recordStore
-
+const dashStore = useDashboardStore()
+onBeforeUnmount(() => {
+  dashStore.fetchData()
+})
 </script>
 
 <style scoped>

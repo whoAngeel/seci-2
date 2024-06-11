@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <Bar :data="data" :options="chartOptions" />
+  <div class="w-full h-full bg-slate-200 rounded-lg p-3">
+    <Bar :data="datac" :options="chartOptions" />
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import {
   Chart as ChartJS,
   Title,
@@ -15,12 +15,26 @@ import {
   LinearScale
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import * as chartConfig from './chartConfig.js'
-
+const { carreras } = useMyRecordStore()
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 
 
+const datac = {
+  labels: carreras.map(item => { return item.nombre }),
+  datasets: [
+    {
+      label: "Hombres",
+      backgroundColor: '#82cdff',
+      data: carreras.map(item => { return item.hombres })
+    },
+    {
+      label: "Mujeres",
+      backgroundColor: "#ffa0b4",
+      data: carreras.map(item => { return item.mujeres })
+    }
+  ]
+}
 const chartOptions = reactive({
   responsive: true,
   maintainAspectRatio: false,
@@ -31,21 +45,23 @@ const chartOptions = reactive({
     },
 
 
+  }, scales: {
+    x: { stacked: true },
+    y: { stacked: true }
   },
+
   plugins: {
 
     legend: { display: false, position: 'right' },
-    
+
     title: {
       display: true,
-      text: 'Ultimos Registros',
+      text: 'Carreras (Hoy)',
     },
-    
+
   }
 })
 
 </script>
 
-<style>
-
-</style>
+<style></style>
