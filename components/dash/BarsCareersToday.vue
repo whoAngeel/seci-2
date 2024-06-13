@@ -35,6 +35,7 @@ const datac = {
     }
   ]
 }
+
 const chartOptions = reactive({
   responsive: true,
   maintainAspectRatio: false,

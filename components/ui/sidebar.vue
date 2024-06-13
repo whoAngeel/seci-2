@@ -45,7 +45,7 @@
 
 
             <li>
-              <NuxtLink activeClass="bg-secondary text-secondary-content" to="/stats"
+              <NuxtLink activeClass="bg-secondary text-secondary-content" to="/dashboard"
                 class="group relative flex justify-center rounded px-2 py-1.5 ">
 
                 <span class="text-3xl">

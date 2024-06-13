@@ -8,6 +8,7 @@
 <script setup>
 
 const recordStore = useMyRecordStore()
+
 const toast = useToast()
 onBeforeMount(async()=>{
   await recordStore.fetchRecordToday()

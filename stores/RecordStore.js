@@ -52,7 +52,7 @@ export const useMyRecordStore = defineStore("record", () => {
 				totalDia: totalDia.value
 			}
 		}).then(res=>{
-			console.log(res.data);
+			console.log('');
 		}).catch(err=>{
 			console.log(err.message);
 		})

@@ -59,6 +59,8 @@ export const trends = async () => {
 };
 
 export const top3CarrerasHoy = async () => {
+	const todayDate = dayjs().format("DD/MM/YYYY");
+
 	try {
 		const record = await Record.findOne({ date: todayDate });
 		if (!record) {
@@ -100,5 +102,22 @@ export const top3CarrerasTodo = async () => {
 		return {
 			error: error.message,
 		};
+	}
+};
+
+export const totalStudents = async () => {
+	try {
+		const records = await getRecords();
+		if (!records || records.length === 0)
+			throw Error("Sin registros encontrados");
+		let total = 0;
+		total = records.reduce((acc, current) => {
+			return (acc += current.totalDia);
+		}, 0);
+		return total
+	} catch (error) {
+		return {
+			error: error.message
+		}
 	}
 };
