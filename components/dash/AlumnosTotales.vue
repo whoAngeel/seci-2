@@ -1,8 +1,9 @@
 <template>
-  <div class="tooltip tooltip-success" :data-tip="largeFormattedNumber">
-    <div class="stats shadow">
+  <!-- <div wfu></div> -->
+  <div class="tooltip tooltip-success w-full" :data-tip="largeFormattedNumber">
+    <div class="stats shadow ">
 
-      <div class="stat bg-info text-info-content">
+      <div class="stat bg-info text-info-content ">
         <div class="stat-title text-info-content">Total Alumnos Ingresados</div>
         <span class="stat-value ">{{ shorNumber }}</span>
       </div>

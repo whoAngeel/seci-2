@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		"nuxt-quasar-ui",
 		"dayjs-nuxt",
 		"@pinia/nuxt",
-		'nuxt-time'
+		"nuxt-time",
 	],
 
 	appConfig: {
@@ -110,5 +110,15 @@ export default defineNuxtConfig({
 			position: "top-0 bottom-auto",
 		},
 	},
-	ssr:false
+	ssr: false,
+	loading: {
+		color: "blue",
+		height: "5px",
+	},
+
+	// Para definir una transición global
+	pageTransition: {
+		name: "page",
+		mode: "out-in",
+	},
 });
