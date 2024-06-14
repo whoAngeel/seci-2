@@ -3,7 +3,12 @@ import { createPinia, defineStore } from "pinia";
 import axios from "axios";
 
 export const useDashboardStore = defineStore("dashboard", {
-	state: () => ({ genderDistribution: {}, isLoading: false, recordTrends: [], alumnosTotales: 0}),
+	state: () => ({
+		genderDistribution: {},
+		isLoading: false,
+		recordTrends: [],
+		alumnosTotales: 0,
+	}),
 	getters: {},
 	actions: {
 		async fetchData() {
@@ -11,14 +16,13 @@ export const useDashboardStore = defineStore("dashboard", {
 			try {
 				const res = await axios.get("/api/dash");
 				this.genderDistribution = res.data?.genderDistribution;
-				this.recordTrends = res.data?.recordTrends
-				this.alumnosTotales = res.data?.totales
+				this.recordTrends = res.data?.recordTrends;
+				this.alumnosTotales = res.data?.totales;
 			} catch (error) {
 				console.log(error);
 			} finally {
 				this.isLoading = false;
 			}
-			
 		},
 	},
 });

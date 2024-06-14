@@ -1,9 +1,9 @@
 <template>
-  <div class="stats shadow">
+  <div class="tooltip tooltip-success" :data-tip="largeFormattedNumber">
+    <div class="stats shadow">
 
-    <div class="stat bg-info text-info-content">
-      <div class="stat-title text-info-content">Total Alumnos Ingresados</div>
-      <div class="tooltip tooltip-info " :data-tip="largeFormattedNumber">
+      <div class="stat bg-info text-info-content">
+        <div class="stat-title text-info-content">Total Alumnos Ingresados</div>
         <span class="stat-value ">{{ shorNumber }}</span>
       </div>
     </div>
@@ -21,8 +21,8 @@ const shorNumber = computed(() => {
   return numeral(props.alumnosTotales).format('0.0 a')
 })
 
-const largeFormattedNumber = computed(()=>{
-  return numeral(props.alumnosTotales).format('0,0')
+const largeFormattedNumber = computed(() => {
+  return `${numeral(props.alumnosTotales).format('0,0')} personas`
 })
 </script>
 

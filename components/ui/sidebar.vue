@@ -8,7 +8,7 @@
           <div class="py-4">
             <div class="avatar">
               <div class="w-12 rounded-full">
-                <img src="/icon.png" class="" alt="logo ito"> 
+                <img src="/icon.png" class="" alt="logo ito">
               </div>
             </div>
 
@@ -45,7 +45,7 @@
 
 
             <li>
-              <NuxtLink activeClass="bg-secondary text-secondary-content" to="/dashboard"
+              <NuxtLink activeClass="bg-secondary text-secondary-content" to="/dashboard" 
                 class="group relative flex justify-center rounded px-2 py-1.5 ">
 
                 <span class="text-3xl">
@@ -96,6 +96,11 @@
 // const themes = [
 //   "system", ...daisyThemes
 // ];
+// const { fetchData } = useDashboardStore()
+// const fetchDashboard = async () => {
+//   console.log('actualizando');
+//   await fetchData()
+// }
 </script>
 
 <style></style>

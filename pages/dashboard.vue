@@ -1,21 +1,24 @@
 <template>
-  <div class="w-full  h-full flex flex-col items-stretch parent ">
-    <div class="div1 flex-col m-1 p-2 rounded-lg">
-      <ChartGenderDistribution />
+  <main class="w-full h-full flex flex-col items-stretch">
+    <div v-if="store.isLoading" class="parent">
+      <div class="div1 flex-col m-1 p-2 rounded-lg">
+        <ChartGenderDistribution />
+      </div>
+      <div class="div2 m-1 p-2 rounded-lg flex gap">
+        <AlumnosTotales :alumnosTotales="store.alumnosTotales" />
+        <AlumnosTotales :alumnosTotales="store.alumnosTotales" />
+      </div>
+      <div class="div3 m-1 p-2 rounded-lg">
+        <BarsRecords />
+      </div>
+      <div class="div4 m-1 p-2 rounded-lg">
+        <BarsCareersToday />
+      </div>
     </div>
-    <div class="div2 m-1 p-2  rounded-lg">
-      <!-- <h3 class="text-lg font-extrabold text-center my-2">Todo</h3> -->
-     <alumnos-totales :alumnosTotales="store.alumnosTotales"/>
-      <!-- <NoVueChart/> -->
+    <div v-else>
+      cargando...
     </div>
-    <div class="div3 m-1 p-2  rounded-lg">
-      <bars-records />
-    </div>
-    <div class="div4 m-1 p-2  rounded-lg">
-      <bars-careers-today />
-    </div>
-
-  </div>
+  </main>
 </template>
 
 <script setup>
@@ -24,18 +27,16 @@ import BarsRecords from '~/components/dash/BarsRecords.vue';
 import BarsCareersToday from '~/components/dash/BarsCareersToday.vue';
 import NoVueChart from '~/components/dash/noVueChart.vue';
 import AlumnosTotales from '~/components/dash/AlumnosTotales.vue';
+import loader from '~/components/ui/loader.vue';
+
 const store = useDashboardStore()
+// const { isLoading } = storeToRefs(store)
 
-onBeforeMount(async() => {
-  await store.fetchData()
-})
-onMounted(async()=>{
+
+onMounted(async () => {
   await store.fetchData()
 })
 
-onBeforeUnmount(async () => {
-  await store.fetchData()
-})
 
 </script>
 
