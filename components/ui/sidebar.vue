@@ -58,6 +58,16 @@
                 </span>
               </NuxtLink>
             </li>
+            <li>
+              <NuxtLink activeClass="bg-secondary text-secondary-content" to="/savereports" class="group relative flex justify-center rounded px-2 py-1.5 ">
+                <span class="text-3xl">
+                  <Icon name="dashicons:editor-table"/>
+                </span>
+                <span class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-950 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">Reportes</span>
+
+              </NuxtLink>
+            </li>
+
 
 
 
