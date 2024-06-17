@@ -1,9 +1,9 @@
 <template>
-  <div class="flex h-screen w-16 flex-col justify-between border-e bg-base-300" data-theme="">
-    <div>
+  <div class="flex h-screen w-16 flex-col justify-between border-e bg-base-300 " data-theme="">
+    <div class="">
 
 
-      <div class="border-gray-200">
+      <div class="border-gray-200 ">
         <div class="px-2">
           <div class="py-4">
             <div class="avatar">
@@ -61,7 +61,7 @@
             <li>
               <NuxtLink activeClass="bg-secondary text-secondary-content" to="/savereports" class="group relative flex justify-center rounded px-2 py-1.5 ">
                 <span class="text-3xl">
-                  <Icon name="dashicons:editor-table"/>
+                  <Icon name="majesticons:save-as"/>
                 </span>
                 <span class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-950 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">Reportes</span>
 
@@ -87,11 +87,10 @@
       </div>
     </div> -->
 
-    <div class="space-y-1 border-t sticky inset-x-0 bottom-0 border-gray-100 text-green-400 p-2">
+    <div class="space-y-1 border-t sticky bottom-0 inset-x-0  border-gray-100 text-green-400 p-2">
       <form action="#">
         <button type="submit" class="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-3xl ">
           <Icon name="dashicons:database" />
-
         </button>
       </form>
     </div>
