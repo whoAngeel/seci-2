@@ -25,7 +25,7 @@
             <option v-for="date in fechasDisponibles" :key="date" :value="date">{{ date }}</option>
           </select>
           <div class="tooltip " data-tip="Recargar">  
-            <button class="btn btn-square btn-sm" v-if="endDate">
+            <button class="btn btn-square btn-sm" v-if="endDate" @click="actualizarRegistros">
               <Icon name="material-symbols:directory-sync" />
             </button>
           </div>
@@ -48,6 +48,7 @@
 </template>
 
 <script setup>
+import axios from 'axios';
 import TableRecords from '../components/Reports/table.vue';
 const store = useRecordsStore()
 
@@ -86,6 +87,11 @@ const updateEndDate = () => {
   enableEndDate.value = true;
   // return enableEndDate.value || endDate.value!=null
 };
+
+const actualizarRegistros = ()=>{
+
+  // axios.get('/')
+}
 
 onMounted(async () => {
   await store.fetchRecords();

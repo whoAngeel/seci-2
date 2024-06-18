@@ -1,9 +1,10 @@
+import { parse } from "vue/compiler-sfc";
 import { CareerModel as Career, RecordModel as Record } from "../models/models";
 import dayjs from "dayjs";
 
 export const getRecords = async () => {
 	try {
-		return await Record.find()
+		return await Record.find();
 	} catch (error) {
 		console.log(error);
 		return {
@@ -122,4 +123,46 @@ export const adjustCareerCount = async (date, careerName, gender, increment) => 
 			error: "Error updating career count",
 		};
 	}
+};
+
+export const getOrderedRecords = async () => {
+	const records = await Record.find({});
+	const ordered = records.sort((a, b) => {
+		const [dayA, monthA, yearA] = a.date.split("/").map(Number);
+		const [dayB, monthB, yearB] = b.date.split("/").map(Number);
+
+		const dateA = new Date(yearA, monthA - 1, dayA);
+		const dateB = new Date(yearB, monthB - 1, dayB);
+
+		return dateB - dateA; // Invertir el orden
+	});
+	return ordered;
+};
+
+const parseDate = (str) => {
+	const { day, month, year } = str.split("/");
+	return new Date(`${year}-${month}-${day}`);
+};
+
+export const getByDateRange = async (startDate, endDate) => {
+	if (!startDate || !endDate) {
+		return {
+			error: "Start and end dates are required",
+		};
+	}
+
+	const start = parseDate(startDate);
+	const end = parseDate(endDate);
+
+	const orderedRecords = await getOrderedRecords();
+	const startIndex = orderedRecords.findIndex(record=> record.date === startDate)
+	const endIndex = orderedRecords.findIndex(record => record.date === endDate)
+
+	if(startIndex === -1 || endIndex === -1){
+		return {error: "No records found in the given date range"}
+
+	}
+	const filteredRecords = orderedRecords.slice(endIndex, startIndex+1);
+
+	return filteredRecords;
 };
