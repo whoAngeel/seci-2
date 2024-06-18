@@ -89,8 +89,20 @@ const updateEndDate = () => {
 };
 
 const actualizarRegistros = ()=>{
+  console.log(startDate.value);
+  axios({
+    method: "PATCH",
+    url: "/api/records/date-range",
+    data: {
+      startDate: startDate.value,
+      endDate: endDate.value
+    }
+  }).then(res=>{
+    console.log(res.data);
+  }).catch(err=> {
+    console.log(err.message);
+  })
 
-  // axios.get('/')
 }
 
 onMounted(async () => {
