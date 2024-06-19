@@ -30,7 +30,8 @@
 
         <!-- <input type="date" placeholder="Type here" class="input input-bordered input-success input-sm " /> -->
       </div>
-      <button class='btn btn-sm btn-primary disabled:btn-disabled' :disabled="!enableExportButton || !validButton">
+      <button class='btn btn-sm btn-primary disabled:btn-disabled' :disabled="!enableExportButton || !validButton"
+        @click="isOpen = true" label="Open">
         <Icon name="material-symbols:download-rounded" />
         Exportar
       </button>
@@ -45,12 +46,18 @@
     </section>
   </div>
 
+  <UModal v-model="isOpen" :transition="false">
+    <CardDownload/>
+  </UModal>
+
 </template>
 
 <script setup>
 import axios from 'axios';
 import TableRecords from '../components/Reports/table.vue';
-import ldrs from '~/components/ui/ldrs.vue';
+import ldrs from '../components/ui/ldrs.vue'
+import CardDownload from '../components/cardDownload.vue'
+
 
 const store = useRecordsStore()
 
@@ -59,6 +66,7 @@ const endDate = ref(null)
 const validButton = ref(true)
 const enableEndDate = ref(false)
 const isLoading = ref(false)
+const isOpen = ref(false) // open modal
 const toast = useToast()
 const fechasDisponibles = computed(() => {
   if (startDate.value && store.dates.length > 0) {

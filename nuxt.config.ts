@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		"nuxt-quasar-ui",
 		"dayjs-nuxt",
 		"@pinia/nuxt",
-		"nuxt-time",
+		"nuxt-time",  '@sidebase/nuxt-pdf',
 	],
 
 	appConfig: {
