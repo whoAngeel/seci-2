@@ -20,15 +20,11 @@
 
         <div class="flex gap-2 items-center justify-between" v-if="enableEndDate || endDate">
           <span>Fecha final:</span>
-          <select v-model="endDate" class="select select-accent select-sm">
+          <select v-model="endDate" @change="actualizarRegistros" class="select select-accent select-sm">
             <option disabled value="">Seleccionar fecha final</option>
             <option v-for="date in fechasDisponibles" :key="date" :value="date">{{ date }}</option>
           </select>
-          <div class="tooltip " data-tip="Recargar">
-            <button class="btn btn-square btn-sm" v-if="endDate" @click="actualizarRegistros">
-              <Icon name="material-symbols:directory-sync" />
-            </button>
-          </div>
+
         </div>
 
 
@@ -42,7 +38,10 @@
 
     <!--  Registros -->
     <section class="">
-      <table-records :records="store.records"></table-records>
+      <div v-if="isLoading" class="w-full h-72 flex items-center content-center justify-center">
+        <ldrs />
+      </div>
+      <table-records v-else :records="store.records"></table-records>
     </section>
   </div>
 
@@ -51,6 +50,8 @@
 <script setup>
 import axios from 'axios';
 import TableRecords from '../components/Reports/table.vue';
+import ldrs from '~/components/ui/ldrs.vue';
+
 const store = useRecordsStore()
 
 const startDate = ref(null)
@@ -73,6 +74,7 @@ const cleanDates = () => {
   startDate.value = null
   endDate.value = null
   validButton.value = false
+  store.fetchRecords()
 }
 
 const enableExportButton = computed(() => {
@@ -90,7 +92,9 @@ const updateEndDate = () => {
   // return enableEndDate.value || endDate.value!=null
 };
 
+
 const actualizarRegistros = () => {
+  isLoading.value = true
   axios({
     method: "PATCH",
     url: "/api/records/date-range",
@@ -103,12 +107,12 @@ const actualizarRegistros = () => {
   }).catch(err => {
     console.log(err.message);
     toast.add({ title: `${err.message}`, color: "primary" })
-  })
+  }).finally(() => isLoading.value = false)
 
 }
 
-onMounted(async () => {
-  await store.fetchRecords();
+onMounted(() => {
+  store.fetchRecords();
 });
 </script>
 
