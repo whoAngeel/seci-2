@@ -47,7 +47,7 @@
   </div>
 
   <UModal v-model="isOpen" :transition="false">
-    <CardDownload/>
+    <CardDownload />
   </UModal>
 
 </template>

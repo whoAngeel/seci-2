@@ -13,7 +13,8 @@ export default defineNuxtConfig({
 		"nuxt-quasar-ui",
 		"dayjs-nuxt",
 		"@pinia/nuxt",
-		"nuxt-time",  '@sidebase/nuxt-pdf',
+		"nuxt-time",
+		'nuxt-proxy'
 	],
 
 	appConfig: {
@@ -121,4 +122,8 @@ export default defineNuxtConfig({
 		name: "page",
 		mode: "out-in",
 	},
+	serverMiddleware:[{
+		path: '/api/generar-pdf', handler:"./middleware/generate-pdf"
+	}]
+	
 });

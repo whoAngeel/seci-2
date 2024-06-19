@@ -155,14 +155,54 @@ export const getByDateRange = async (startDate, endDate) => {
 	const end = parseDate(endDate);
 
 	const orderedRecords = await getOrderedRecords();
-	const startIndex = orderedRecords.findIndex(record=> record.date === startDate)
-	const endIndex = orderedRecords.findIndex(record => record.date === endDate)
+	const startIndex = orderedRecords.findIndex(
+		(record) => record.date === startDate
+	);
+	const endIndex = orderedRecords.findIndex((record) => record.date === endDate);
 
-	if(startIndex === -1 || endIndex === -1){
-		return {error: "No records found in the given date range"}
-
+	if (startIndex === -1 || endIndex === -1) {
+		return { error: "No records found in the given date range" };
 	}
-	const filteredRecords = orderedRecords.slice(endIndex, startIndex+1);
+	const filteredRecords = orderedRecords.slice(endIndex, startIndex + 1);
 
 	return filteredRecords;
 };
+
+export function generateHTML(records) {
+	// Generar el contenido HTML dinámico para el PDF
+	return `
+	  <html>
+	  <head>
+		<style>
+		  body { font-family: Arial, sans-serif; }
+		  h1 { text-align: center; }
+		  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+		  th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
+		</style>
+	  </head>
+	  <body>
+		<h1>Reporte de Registros</h1>
+		<table>
+		  <thead>
+			<tr>
+			  <th>Fecha</th>
+			  <th>Total del Día</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			${records
+				.map(
+					(record) => `
+			  <tr>
+				<td>${record.date}</td>
+				<td>${record.totalDia}</td>
+			  </tr>
+			`
+				)
+				.join("")}
+		  </tbody>
+		</table>
+	  </body>
+	  </html>
+	`;
+}
