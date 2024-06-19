@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <NuxtPage/>
+    <NuxtPage />
   </NuxtLayout>
   <UNotifications />
 </template>
@@ -10,10 +10,10 @@
 const recordStore = useMyRecordStore()
 
 const toast = useToast()
-onBeforeMount(async()=>{
-  await recordStore.fetchRecordToday()
-  if(recordStore.error){
-    toast.add({title: "Error al cargar los datos de hoy"})
+onBeforeMount(() => {
+  recordStore.fetchRecordToday()
+  if (recordStore.error) {
+    toast.add({ title: "Error al cargar los datos de hoy" })
   }
 })
 </script>

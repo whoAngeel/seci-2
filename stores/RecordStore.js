@@ -16,16 +16,18 @@ export const useMyRecordStore = defineStore("record", () => {
 		totalDia.value = record.totalDia || 0;
 	};
 
-	const fetchRecordToday = async () => {
+	const fetchRecordToday = () => {
 		isLoading.value = true;
-		try {
-			const res = await axios.get("/api/records/today");
-			setRecord(res.data);
-		} catch (err) {
-			error.value = err.message;
-		} finally {
-			isLoading.value = false;
-		}
+		axios
+			.get("/api/records/today")
+			.then((res) => {
+				setRecord(res.data);
+			})
+			.catch((err) => {
+				error.value = err.message;
+			})
+			.finally(() => (isLoading.value = false));
+		;
 	};
 	function updateCareer(name, gender, inc) {
 		const career = carreras.value.find((counter) => counter.name === name);
@@ -47,15 +49,17 @@ export const useMyRecordStore = defineStore("record", () => {
 		axios({
 			method: "PATCH",
 			url: `/api/records/today/${recordToday.value?.id}`,
-			data:{
+			data: {
 				carreras: carreras.value,
-				totalDia: totalDia.value
-			}
-		}).then(res=>{
-			console.log('');
-		}).catch(err=>{
-			console.log(err.message);
+				totalDia: totalDia.value,
+			},
 		})
+			.then((res) => {
+				console.log("");
+			})
+			.catch((err) => {
+				console.log(err.message);
+			});
 	}
 	return {
 		saveRecordToday,
@@ -67,6 +71,6 @@ export const useMyRecordStore = defineStore("record", () => {
 		carreras,
 		setRecord,
 		totalDia,
-		now
+		now,
 	};
 });

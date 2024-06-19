@@ -34,8 +34,8 @@ import Top3All from '~/components/dash/Top3All.vue';
 
 const store = useDashboardStore();
 
-onBeforeMount(async () => {
-  await store.fetchData();
+onBeforeMount(() => {
+   store.fetchData();
 });
 </script>
 

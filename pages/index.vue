@@ -19,8 +19,8 @@ const dayjs = useDayjs()
 const recordStore = useMyRecordStore()
 const { isLoading, error } = recordStore
 const dashStore = useDashboardStore()
-onBeforeUnmount(async() => {
-  await dashStore.fetchData()
+onBeforeUnmount(() => {
+   dashStore.fetchData()
 })
 </script>
 

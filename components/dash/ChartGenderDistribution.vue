@@ -2,7 +2,7 @@
   <div
     class="container w-full h-48 bg-slate-200 rounded-lg p-5 flex flex-row items-center content-between justify-center">
     <h3 class="text-xs text-slate-950 font-bold">Distribución De Género (Hoy)</h3>
-    <Pie :data="dataC" :options="chartOptions" class="" />
+    <Pie :data="dataC" :options="chartOptions" class=""  />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const { genderDistribution, fetchData } = useDashboardStore();
+const { genderDistribution, fetchData, isLoading } = useDashboardStore();
 
 const dataC = {
   labels: ['Hombres', 'Mujeres'],
@@ -74,6 +74,7 @@ const chartOptions = reactive({
 
 onBeforeMount(() => {
   fetchData();
+
 });
 </script>
 
