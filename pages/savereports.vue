@@ -5,7 +5,7 @@
     <div class="flex justify-evenly">
       <div class="flex gap-2">
         <div class="flex gap-2 items-center justify-between">
-          <div class="tooltip " data-tip="Limpiar">  
+          <div class="tooltip " data-tip="Limpiar">
             <button @click="cleanDates" class="btn btn-square btn-sm" v-if="startDate || endDate">
               <Icon name="icon-park-solid:clear-format" />
             </button>
@@ -24,19 +24,20 @@
             <option disabled value="">Seleccionar fecha final</option>
             <option v-for="date in fechasDisponibles" :key="date" :value="date">{{ date }}</option>
           </select>
-          <div class="tooltip " data-tip="Recargar">  
+          <div class="tooltip " data-tip="Recargar">
             <button class="btn btn-square btn-sm" v-if="endDate" @click="actualizarRegistros">
               <Icon name="material-symbols:directory-sync" />
             </button>
           </div>
         </div>
-        
+
 
         <!-- <input type="date" placeholder="Type here" class="input input-bordered input-success input-sm " /> -->
       </div>
       <button class='btn btn-sm btn-primary disabled:btn-disabled' :disabled="!enableExportButton || !validButton">
-        <Icon name="material-symbols:download-rounded"/>
-        Exportar</button>
+        <Icon name="material-symbols:download-rounded" />
+        Exportar
+      </button>
     </div>
 
     <!--  Registros -->
@@ -56,7 +57,8 @@ const startDate = ref(null)
 const endDate = ref(null)
 const validButton = ref(true)
 const enableEndDate = ref(false)
-
+const isLoading = ref(false)
+const toast = useToast()
 const fechasDisponibles = computed(() => {
   if (startDate.value && store.dates.length > 0) {
     const fechaInicialIndex = store.dates.indexOf(startDate.value);
@@ -67,7 +69,7 @@ const fechasDisponibles = computed(() => {
   return [];
 });
 
-const cleanDates=()=>{
+const cleanDates = () => {
   startDate.value = null
   endDate.value = null
   validButton.value = false
@@ -88,8 +90,7 @@ const updateEndDate = () => {
   // return enableEndDate.value || endDate.value!=null
 };
 
-const actualizarRegistros = ()=>{
-  console.log(startDate.value);
+const actualizarRegistros = () => {
   axios({
     method: "PATCH",
     url: "/api/records/date-range",
@@ -97,17 +98,17 @@ const actualizarRegistros = ()=>{
       startDate: startDate.value,
       endDate: endDate.value
     }
-  }).then(res=>{
-    console.log(res.data);
-  }).catch(err=> {
+  }).then(res => {
+    store.records = res.data
+  }).catch(err => {
     console.log(err.message);
+    toast.add({ title: `${err.message}`, color: "primary" })
   })
 
 }
 
 onMounted(async () => {
   await store.fetchRecords();
-
 });
 </script>
 

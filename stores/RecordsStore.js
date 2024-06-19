@@ -7,20 +7,14 @@ export const useRecordsStore = defineStore('records', () => {
   const dates = ref([])
   const isLoading = ref(false)
   
-  const fetchRecords = async ()=>{
-    try {
+  const fetchRecords = ()=>{
       isLoading.value = true
-      const response = await axios.get('/api/records');
+      const response =axios.get('/api/records').then(res=>{
+        records.value = res.data.ordered
+        dates.value = res.data.ordered.map(r=>r.date)
+      }).catch(err=>console.log(err.message)).finally(()=>isLoading.value = false)
       // const fetchedRecords = response.data.ordered || []; // Obtener los registros o un array vacío si no hay datos
-      
-      records.value = response.data.ordered; // Asignar los registros obtenidos
-      dates.value = response.data.ordered.map(r => r.date); 
-      
-    } catch (error) {
-      console.log(error.message);
-    } finally{
-      isLoading.value = false
-    }
+     
   }
 
   return {
