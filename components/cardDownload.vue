@@ -10,7 +10,7 @@
         PDF
       </button>
       <button class="btn btn-primary" @click="generarExcel">
-        <Icon name="vscode-icons:file-type-excel" class="text-2xl"  />
+        <Icon name="vscode-icons:file-type-excel" class="text-2xl" />
         Excel
       </button>
 
@@ -84,21 +84,22 @@ function generarExcel() {
   const sheetData = [];
 
   // Definir encabezados
-  const header = ['Fecha', 'Carrera', 'Hombres', 'Mujeres', 'Total Día'];
+  const header = ['Fecha'];
+  records[0].carreras.forEach(carrera => {
+    header.push(`${carrera.nombre} (Hombres)`, `${carrera.nombre} (Mujeres)`);
+  });
+  header.push('Total Día');
   sheetData.push(header);
 
   records.forEach((item) => {
-    item.carreras.forEach((carrera) => {
-      const row = [
-        item.date,
-        carrera.nombre,
-        carrera.hombres,
-        carrera.mujeres,
-        item.totalDia,
-      ];
-      sheetData.push(row);
+    const row = [item.date];
+    item.carreras.forEach(carrera => {
+      row.push(carrera.hombres, carrera.mujeres);
     });
+    row.push(item.totalDia);
+    sheetData.push(row);
   });
+
 
   const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Registros');
