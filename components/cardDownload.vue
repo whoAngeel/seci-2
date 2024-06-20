@@ -9,8 +9,8 @@
         <Icon name="vscode-icons:file-type-pdf2" class="text-2xl" />
         PDF
       </button>
-      <button class="btn btn-primary">
-        <Icon name="vscode-icons:file-type-excel" class="text-2xl" />
+      <button class="btn btn-primary" @click="generarExcel">
+        <Icon name="vscode-icons:file-type-excel" class="text-2xl"  />
         Excel
       </button>
 
@@ -22,10 +22,13 @@
 <script setup>
 import axios from 'axios';
 import jsPDF from 'jspdf';
+// import xlsx from 'xlsx/dist/xlsx.full.min'
+import * as XLSX from 'xlsx'
 import autoTable from 'jspdf-autotable'
 const { records } = useRecordsStore()
 const props = defineProps(['startDate', "endDate"])
 const toast = useToast()
+const dayjs = useDayjs()
 
 function generarPDF() {
   let pdf = new jsPDF()
@@ -69,24 +72,42 @@ function generarPDF() {
 
   // Guardar el PDF
   pdf.save('registros.pdf');
-  toast.add({ title: "Registro guardado" })
-  // pdf.text("Registro de carreras",10,10)
-  // let ypos = 20
+  toast.add({ title: "Registro guardado", color: 'lime' })
 
-  // store.records.forEach(registro=>{
-  //   pdf.text(`Fecha del registro ${registro.date}`, 10,ypos)
-  //   ypos+=10
 
-  //   registro.carreras.forEach(carrera=>{
-  //     pdf.text(`${carrera.nombre} - Hombres: ${carrera.hombres}, Mujeres: ${carrera.mujeres}, Total: ${carrera.total}`, 10, ypos)
-  //     ypos+=10
+}
 
-  //   })
-  //   ypos+=10
+function generarExcel() {
 
-  // })
-  // pdf.save('info.pdf')
+  const workbook = XLSX.utils.book_new();
 
+  const sheetData = [];
+
+  // Definir encabezados
+  const header = ['Fecha', 'Carrera', 'Hombres', 'Mujeres', 'Total Día'];
+  sheetData.push(header);
+
+  records.forEach((item) => {
+    item.carreras.forEach((carrera) => {
+      const row = [
+        item.date,
+        carrera.nombre,
+        carrera.hombres,
+        carrera.mujeres,
+        item.totalDia,
+      ];
+      sheetData.push(row);
+    });
+  });
+
+  const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Registros');
+
+  let fileName = `seci_${dayjs()}.xlsx`;
+  fileName = fileName.replaceAll('/', '-');
+
+  // Generar el archivo Excel y descargarlo
+  XLSX.writeFile(workbook, fileName);
 }
 
 
